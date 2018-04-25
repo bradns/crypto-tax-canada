@@ -14,6 +14,6 @@ def parse_xlsx(xlsx_filename):
         tr_type = TransactionType.Buy if r1["Type"].lower() == "buy" else TransactionType.Sell
         major, minor = MARKETS[r1["Market"]]
         dt = datetime.strptime(r1["Date"], "%Y-%m-%d %H:%M:%S")
-        ut = UniversalTransaction(Exchange.Binance, tr_type, dt, major, minor, r1["Amount"], r1["Price"])
+        ut = UniversalTransaction(Exchange.Binance, tr_type, dt, major, minor, float(r1["Amount"]), float(r1["Price"]))
         result.append(ut)
     return result

@@ -15,6 +15,6 @@ def parse_csv(csv_filepath):
             tr_type = TransactionType.Buy if flds[0].lower() == "buy" else TransactionType.Sell
             dt_str = flds[8].split('.')[0] # Don't really need the milliseconds
             dt = datetime.utcfromtimestamp(float(dt_str))
-            ut = UniversalTransaction(Exchange.Quadriga, tr_type, dt, flds[1].upper(), flds[2].upper(), flds[3], flds[4])
+            ut = UniversalTransaction(Exchange.Quadriga, tr_type, dt, flds[1].upper(), flds[2].upper(), float(flds[3]), float(flds[4]))
             result.append(ut)
     return result
