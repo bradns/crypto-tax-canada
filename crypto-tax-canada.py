@@ -19,8 +19,8 @@ def process_csv(datadir):
             ut_list.extend(parse_csv(f))
         elif f.endswith(".xlsx"):
             ut_list.extend(parse_xlsx(f))
-        num_buy += len(list(filter(lambda i: i.trans_type == TransactionType.Buy, ut_list)))
-        num_sell += len(list(filter(lambda i: i.trans_type == TransactionType.Sell, ut_list)))
+    num_buy = len(list(filter(lambda i: i.trans_type == TransactionType.Buy, ut_list)))
+    num_sell = len(list(filter(lambda i: i.trans_type == TransactionType.Sell, ut_list)))
     print(f"There are {num_buy} buy transactions and {num_sell} sell transactions")
     tp = TransactionProcessor()
     tp.process(ut_list)
