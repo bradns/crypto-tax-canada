@@ -4,6 +4,7 @@ import click
 from transaction_parsing.universal_transaction import TransactionType
 from transaction_parsing.quadrigacx_parser import parse_csv
 from transaction_parsing.binance_parser import parse_xlsx
+from transaction_parsing.gatehub_parser import parse_gatehub
 from transaction_processing.transaction_processor import TransactionProcessor
 
 @click.command()
@@ -15,8 +16,10 @@ def process_csv(datadir):
     num_buy, num_sell = 0, 0
     ut_list = []
     for f in f_list:
-        if f.endswith(".csv"):
+        if os.path.split(f)[1].startswith("user-") and f.endswith(".csv"):
             ut_list.extend(parse_csv(f))
+        elif os.path.split(f)[1].startswith("balance_changes") and f.endswith(".csv"):
+            ut_list.extend(parse_gatehub(f))
         elif f.endswith(".xlsx"):
             ut_list.extend(parse_xlsx(f))
     num_buy = len(list(filter(lambda i: i.trans_type == TransactionType.Buy, ut_list)))
