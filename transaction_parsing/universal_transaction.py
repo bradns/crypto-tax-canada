@@ -22,4 +22,6 @@ class UniversalTransaction:
         self.cad_rate = cad_rate
 
     def __str__(self):
-        return f"{self.exchange}\t{self.trans_type}\t{self.datetime}\t{self.major}\t{self.minor}\t{self.amount}\t{self.rate}\t{self.cad_rate}"
+    	ex_strs = {Exchange.Quadriga: "QCX", Exchange.Binance: "BIN", Exchange.GateHub: "GAT"}
+    	type_strs = {TransactionType.Buy: "BUY ", TransactionType.Sell: "SELL"}
+    	return f"{ex_strs[self.exchange]} {self.datetime} {type_strs[self.trans_type]}  {self.amount:.8f} {self.major}\tAT {self.rate:.8f} {self.minor}\t(CAD$ {self.cad_rate})"
